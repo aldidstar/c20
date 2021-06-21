@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Result</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <form action="/add" method="post">
+      <h1>BREAD (Browse Read Edit Delete)</h1>
+      
+      <label id="Name" for="Name">Name</label>
+      <input type="text" id="Name" name="name" placeholder="Enter your name" />
+      <br /><br />
+      <label id="Weight" for="Weight">Weight</label>
+      <input
+        type="number"
+        id="Weight"
+        name="weight"
+        placeholder="Enter your weight (kg)"
+      />
+      <br /><br />
+      <label id="Height" for="Height">Height</label>
+      <input
+        type="number"
+        id="Height"
+        name="height"
+        placeholder="Enter your Height (cm)"
+      />
+      <br /><br />
+      <label id="Date"  >Date</label>
+      <input class="date"
+        type="date"
+        
+        name="date"
+        
+      /> to
+      <input class="date"
+        type="date"
+        
+        name="date"
+        placeholder="Enter your birthdate"
+      />
+      <br /><br />
+      <label id="Status" for="Status">Marriage Status </label>
+      <select type="boolean" id="Status" name="status">
+        
+        <option value="true">true</option>
+        <option value="false">false</option>
+      </select>
+      <br /><br />
+      <button type="submit" class="save">Search</button>
+
+      <table>
+        <tr>
+          <th>No</th>
+          <th>Name</th>
+          <th>Weight</th>
+          <th>Height</th>
+          <th>Date</th>
+          <th>Marriage Status</th>
+          <th>Action</th>
+        </tr>
+        <% nama.forEach((item, index) => { %>
+        <tr class="genap">
+          <td><%= index + 1 %></td>
+          <td><%= item.nama %></td>
+          <td><%= item.berat %></td>
+          <td><%= item.tinggi %></td>
+          <td><%= item.tanggal %></td>
+          <td><%= item.hubungan %></td>
+          <td>
+            <a class="edit" href="/edit/<%= item.id %>">edit</a>
+            <a class="delete" href="/delete/<%= item.id %>">delete</a>
+          </td>
+        </tr>
+        <% }) %>
+      </table>
+
+      <br /><br />
+      <div class="pagination">
+       
+        <% if(page >= 1) { %>
+          <a href="/?page=<%= page - 1 %>&size=<%= 3 %>">Previous</a>
+          <% } %>
+        <% for(let i = 0; i < jumlahHalaman ; i++) { %>
+        <a href="/?page=<%= i %>&size=<%= 3 %>"><%= i + 1 %></a>
+        <% } %>
+        <% if(page < jumlahHalaman - 1) { %>
+          <a href="/?page=<%= page - 1 %>&size=<%= 3 %>">Next</a>
+          <% } %>
+         
+      </div> 
+      <br /><br />
+      <button><a class="add" href="add"> Add</a></button>
+      
+    </form>
+  </body>
+</html>

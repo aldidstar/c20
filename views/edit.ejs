@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Data</title>
+    <link rel="stylesheet" href="/style.css">
+    
+  </head>
+  <body>
+    <form action="" method="post">
+    <h1>EDIT DATA</h1>
+    
+   
+    <label id="Name" for="Name">Name</label>
+    <input value="<%= nama.nama %>" type="text" id="Name" name="name"  placeholder=""   /> 
+    <br /><br />
+    <label id="Weight" for="Weight">Weight</label>
+    <input value="<%= nama.berat %>" type="number" id="Weight" name="weight" placeholder="Enter your weight (kg)"/>
+    <br /><br />
+    <label id="Height" for="Height">Height</label>
+    <input value="<%= nama.tinggi %>" type="number" id="Height" name="height" placeholder="Enter your Height (cm)" />
+    <br /><br />
+    <label id="Date" for="Date">Date</label>
+    <input value="<%= nama.tanggal %>" type="date" id="Date" name="date" placeholder="Enter your birthdate" />
+    <br /><br />
+    <label id="Status" for="Status" > Marriage Status</label>
+    <select  type="boolean" id="Status" name="status" >
+        
+      <option value="true">true</option>
+      <option value="false">false</option>
+    </select>
+    <br /><br />
+    <button type="submit" class="save">Save
+    </button>
+    <button> <a class="back" href="/"> Back</a>
+    </button>
+  
+  </form>
+  </body>
+</html>

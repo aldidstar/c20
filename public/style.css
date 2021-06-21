@@ -1,0 +1,117 @@
+#Name, #Weight, #Height, #Date, #Status, #id {
+    width: 95%;
+    padding: 5px;
+    margin-left: 10px;
+  }
+   .date  {
+    width: 30%;
+  }
+
+  
+  
+  .save{
+    width: 70px;
+  background-color: blue;
+  margin-left: 10px;
+  margin-top: -600px;
+  padding: 5px;
+  color: white;
+  }
+  
+  table {
+    background-color: white;
+    margin-top: 50px;
+    margin-left: 10px;
+    padding: 50px;
+    border-collapse: collapse;
+    margin-right: -100px;
+  }
+  
+  th, td{
+      padding: 35px;
+      padding-bottom: 15px;
+      padding-top: 15px;
+      border: 1px solid;
+  }
+  
+  .genap {
+    background-color: #ccc;
+  }
+  
+  button {
+      width: 70px;
+    background-color: blue;
+    margin-left: 20px;
+    margin-top: -600px;
+    padding: 5px;
+    
+    
+  }
+  
+  .edit{
+      width: 25px;
+      height: 25px;
+      background-color: green;
+      text-decoration: none;
+      color: white;
+      padding: 5px;
+  }
+  
+  .delete{
+      width: 25px;
+      height: 25px;
+      background-color: red;
+      text-decoration: none;
+      color: white;
+      padding: 5px;
+  }
+  
+  .add, .back{
+      width: 35px;
+      height: 25px;
+      background-color: blue;
+      text-decoration: none;
+      color: white;
+      
+      
+  }
+  h1{
+    margin-left: 10px;
+  }
+  
+   /* Pagination links */
+
+   .pagination{
+    border: 1px;
+   }
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  margin-top: -20px;
+  background-color: #ccc;
+  margin-left: 1px;
+  border-color: black;
+  border: 1px;
+  
+
+}
+
+.pagination a.previous{
+
+ margin-left: 10px;}
+
+
+/* Style the active/current link */
+.pagination a.active {
+  background-color: dodgerblue;
+  color: white;
+}
+
+/* Add a grey background color on mouse-over */
+.pagination a:hover:not(.active) {background-color: #ddd;} 
+  
+  
+  
