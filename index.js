@@ -43,42 +43,44 @@ app.get("/", (req, res) => {
   if (height) {
     params.push(`tinggi like '%${height}%'`);
   }
-
-  if (date) {
-    params.push(`between tanggal= '${start}' and tanggal = '${end}'`);
+  
+  if (start && end) {
+    params.push(`tanggal between '${start}' and  '${end}'`);
   }
-
+  
   if (status) {
     params.push(`hubungan='${status}'`);
   }
-
+  
   let sql = `SELECT count(*) as total FROM bread`;
-if (params.length > 0) {
-  sql += ` where ${params.join(" and ")}`;
-}
-
+  if (params.length > 0) {
+    sql += ` where ${params.join(" and ")}`;
+  }
+  
+  console.log(sql)
   db.all(sql, (err, rows) => {
     if (err) {
       return res.send(err)
     }
     const total = rows[0].total
     const pages = Math.ceil(total/limit)
-
+    
     sql = `select * from bread `;
-if (params.length > 0) {
-  sql += ` where ${params.join(" and ")}`;
-}
-
-sql += `limit ${limit} offset ${offset}`; 
-
+    if (params.length > 0) {
+      sql += ` where ${params.join(" and ")}`;
+    }
+    
+    sql += `limit ${limit} offset ${offset}`; 
+    
     db.all(sql,(err, rows) => {
       if (err) {
         return res.send(err)
       }
       res.render("index", { nama: rows, page, pages, url, query: req.query });
-  })
+    })
     
-})
+  })
+  
 })
 
 app.get("/add", (req, res) => res.render("add"));
