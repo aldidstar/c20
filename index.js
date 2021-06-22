@@ -1,14 +1,13 @@
 const express = require("express");
 const path = require("path");
 var bodyParser = require("body-parser");
+const { count } = require("console");
 const sqlite3 = require("sqlite3").verbose();
 const dbFile = __dirname + "/data.db";
 
 let db = new sqlite3.Database(dbFile, sqlite3.OPEN_READWRITE, (err) => {
   if (err) throw err;
 });
-
-
 
 const app = express();
 
@@ -23,30 +22,65 @@ app.use(bodyParser.json());
 app.use("/", express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
-  //konfigurasi pagination 
- 
-  let sql = `SELECT * FROM bread limit 3 offset 0`;
-  let page = parseInt(req.query.page);
-  let size = parseInt(req.query.size);
-  let offset = page * size;
+  //konfigurasi pagination
 
-  if (page && size) {
-    sql = `SELECT * FROM bread limit ${size} offset ${offset}`;
+  const { name, weight, height, date, status, start, end } = req.query;
+
+  const url = req.url == '/' ? '/?page=1' : req.url;
+  const page = parseInt(req.query.page || 1)
+  const limit = 3
+  const offset = (page-1) * limit
+
+  let params = [];
+  if (name) {
+    params.push(`nama like '%${name}%'`);
   }
-  
-  
+
+  if (weight) {
+    params.push(`berat like '%${weight}%'`);
+  }
+
+  if (height) {
+    params.push(`tinggi like '%${height}%'`);
+  }
+
+  if (date) {
+    params.push(`between tanggal= '${start}' and tanggal = '${end}'`);
+  }
+
+  if (status) {
+    params.push(`hubungan='${status}'`);
+  }
+
+  let sql = `SELECT count(*) as total FROM bread`;
+if (params.length > 0) {
+  sql += ` where ${params.join(" and ")}`;
+}
+
   db.all(sql, (err, rows) => {
-    db.all(`SELECT * FROM bread`, (err, row) => {
-      let jumlahData = row.length;
-  let jumlahHalaman = Math.ceil(jumlahData / 3)
-      if (row) {
-      }
-    if (rows) {
-      res.render("index", { nama: rows, jumlahHalaman, page, jumlahData});
+    if (err) {
+      return res.send(err)
     }
-  });
-  });
-});
+    const total = rows[0].total
+    const pages = Math.ceil(total/limit)
+
+    sql = `select * from bread `;
+if (params.length > 0) {
+  sql += ` where ${params.join(" and ")}`;
+}
+
+sql += `limit ${limit} offset ${offset}`; 
+
+    db.all(sql,(err, rows) => {
+      if (err) {
+        return res.send(err)
+      }
+      res.render("index", { nama: rows, page, pages, url, query: req.query });
+  })
+    
+})
+})
+
 app.get("/add", (req, res) => res.render("add"));
 app.post("/add", (req, res) => {
   let sql = `INSERT INTO bread (nama, berat, tinggi, tanggal, hubungan) VALUES
@@ -54,20 +88,15 @@ app.post("/add", (req, res) => {
   db.run(sql, (err) => {
     if (err) throw err;
   });
-  
+
   res.redirect("/");
 });
 
 app.get("/delete/:id", (req, res) => {
-   
   let sql = `DELETE FROM bread WHERE id=${req.params.id}`;
 
-  db.run(sql, (err) => {
-   
-  });
+  db.run(sql, (err) => {});
   res.redirect("/");
-  
-
 });
 
 app.get("/edit/:id", (req, res) => {
@@ -75,30 +104,23 @@ app.get("/edit/:id", (req, res) => {
   db.get(sql, (err, row) => {
     if (err) throw err;
 
-    if(row){
-        
-        res.render("edit", {nama: row});
-    } 
-});
+    if (row) {
+      res.render("edit", { nama: row });
+    }
+  });
 });
 
 app.post("/edit/:id", (req, res) => {
-    let sql = `UPDATE bread 
+  let sql = `UPDATE bread 
         SET nama = '${req.body.name}', berat = '${req.body.weight}', tinggi= '${req.body.height}', tanggal = '${req.body.date}', hubungan = '${req.body.status}'
         WHERE id='${req.params.id}'`;
 
-
-    db.run(sql, (err) => {
-        
-    });
-
+  db.run(sql, (err) => {});
 
   res.redirect("/");
 });
 
-
-
-
 app.listen(3000, () => {
   console.log(`web ini berjalan di port 3000!`);
 });
+

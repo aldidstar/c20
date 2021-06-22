@@ -7,7 +7,13 @@
     width: 30%;
   }
 
-  
+  .check {
+    width: 70px;
+    background-color: white;
+    margin-left: 20px;
+    margin-top: -600px;
+    padding: 5px;
+  }
   
   .save{
     width: 70px;
