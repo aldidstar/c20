@@ -10,5 +10,3 @@ CREATE TABLE bread(
 insert into bread(nama, berat, tinggi, tanggal, hubungan)
 VALUES('Messi', 63, 163, '2021-06-06','true');
 
-{nama: "aldi", berat: 53, tinggi: 163, tanggal: "2021-06-07", hubungan: "true"},
-{nama: "ares", berat: 73, tinggi: 173, tanggal: "2021-06-05", hubungan: "false"},
