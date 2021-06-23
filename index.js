@@ -70,7 +70,7 @@ app.get("/", (req, res) => {
       sql += ` where ${params.join(" and ")}`;
     }
     
-    sql += `limit ${limit} offset ${offset}`; 
+    sql += ` order by id limit ${limit} offset ${offset}`; 
     
     db.all(sql,(err, rows) => {
       if (err) {

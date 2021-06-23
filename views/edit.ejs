@@ -28,8 +28,8 @@
     <label id="Status" for="Status" > Marriage Status</label>
     <select  type="boolean" id="Status" name="status" >
       <option value="">Choose your choice</option>
-      <option value="true">true</option>
-      <option value="false">false</option>
+            <option value="true"<%= nama.hubungan == 'true' ? ' selected' : '' %>>true</option>
+            <option value="false"<%= nama.hubungan == 'false' ? ' selected' : '' %>>false</option>
     </select>
     <br /><br />
     <button type="submit" class="save">Save
